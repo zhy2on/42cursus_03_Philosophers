@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 16:21:38 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/15 18:20:26 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/15 19:30:35 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	philo_take_forks(t_philo *philo)
 void	philo_eat(t_philo *philo)
 {
 	print_message(philo, "is eating");
-	usleep(philo->data->time_to_sleep * 1000);
+	ft_usleep(philo->data->time_to_eat);
 }
 
 void	philo_sleep(t_philo *philo)
 {
 	print_message(philo, "is sleeping");
-	usleep(philo->data->time_to_sleep * 1000);
+	ft_usleep(philo->data->time_to_sleep);
 }
 
 void	philo_think(t_philo *philo)
@@ -43,8 +43,8 @@ void	*philo_start_routine(void *arg)
 	pthread_mutex_lock(&philo->data->eating);
 	philo_take_forks(philo);
 	philo_eat(philo);
+	pthread_mutex_unlock(&philo->data->eating);
 	philo_sleep(philo);
 	philo_think(philo);
-	pthread_mutex_unlock(&philo->data->eating);
 	return (NULL);
 }

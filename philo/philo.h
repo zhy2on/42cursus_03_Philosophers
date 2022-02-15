@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:10:09 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/15 18:18:30 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/15 19:27:49 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,30 @@ typedef struct s_data
 /*
 *** init.c ***
 */
-void	init_data(t_data *data, int ac, char **av);
-void	init_philo(t_philo *philo, int i, t_data *data);
+void		init_data(t_data *data, int ac, char **av);
+void		init_philo(t_philo *philo, int i, t_data *data);
 
 /*
 *** philo.c ***
 */
-void	*philo_start_routine(void *arg);
+void		*philo_start_routine(void *arg);
 
 /*
 *** utils.c ***
 */
-int		ft_atoi(const char *str);
-void	handle_error(char *str, int len);
-void	print_message(t_philo *philo, char *str);
-void	get_time_of_ms(long long *time);
+int			ft_atoi(const char *str);
+void		handle_error(char *str, int len);
+void		print_message(t_philo *philo, char *str);
+long long	get_ms_time(void);
+
+/*
+*** time.c ***
+*/
+void		ft_usleep(long long time);
 
 /*
 *** test.c ***
 */
-void	*test(void	*arg);
+void		*test(void	*arg);
 
 #endif

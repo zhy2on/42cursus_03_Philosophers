@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:47:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/19 16:02:49 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/19 17:03:06 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	init_data(t_data *data, int ac, char **av)
 	i = -1;
 	while (++i < data->num_of_philo)
 		pthread_mutex_init(data->forks + i, NULL);
+	pthread_mutex_init(&data->print, NULL);
 	data->philos = malloc(sizeof(t_philo) * data->num_of_philo);
 	i = -1;
 	while (++i < data->num_of_philo)

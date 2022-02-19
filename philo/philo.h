@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:10:09 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/19 16:45:56 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/19 17:00:46 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_data
 	int				num_of_must_eat;
 	long long		begin;
 	int				done_philo;
+	pthread_mutex_t	print;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 }				t_data;

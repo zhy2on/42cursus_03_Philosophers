@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:10:09 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/15 19:27:49 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/19 16:45:56 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 
 typedef struct s_philo
 {
-	int				idx;
-	pthread_t		thread;
+	int				id;
+	pthread_t		tid;
+	int				eat;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
 	struct s_data	*data;
-	double			time;
 }				t_philo;
 
 typedef struct s_data
@@ -36,9 +36,9 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				num_of_must_eat;
-	pthread_mutex_t	eating;
-	pthread_mutex_t	*forks;
 	long long		begin;
+	int				done_philo;
+	pthread_mutex_t	*forks;
 	t_philo			*philos;
 }				t_data;
 
@@ -59,12 +59,12 @@ void		*philo_start_routine(void *arg);
 int			ft_atoi(const char *str);
 void		handle_error(char *str, int len);
 void		print_message(t_philo *philo, char *str);
-long long	get_ms_time(void);
 
 /*
 *** time.c ***
 */
-void		ft_usleep(long long time);
+void		ft_usleep(t_data *data, long long time);
+long long	get_ms_time(void);
 
 /*
 *** test.c ***

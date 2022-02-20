@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:47:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/20 20:35:44 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/20 23:10:37 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,12 @@ int	init_data(t_data *data, int ac, char **av)
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
 	data->time_to_sleep = ft_atoi(av[4]);
+	data->num_of_must_eat = -1;
+	if (ac == 6)
+		data->num_of_must_eat = ft_atoi(av[5]);
 	data->done_philo = 0;
 	data->forks = NULL;
 	data->philos = NULL;
-	if (ac == 6)
-		data->num_of_must_eat = ft_atoi(av[5]);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->num_of_philo);
 	data->philos = malloc(sizeof(t_philo) * data->num_of_philo);
 	if (!data->forks || !data->philos)

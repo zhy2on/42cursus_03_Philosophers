@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 16:21:38 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/21 18:41:38 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/21 18:42:54 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	*check_death_routine(void *arg)
 		{
 			print_message(philo, "died");
 			philo->data->num_of_philo = 0;
+			pthread_mutex_unlock(&philo->data->death_check);
 			break ;
 		}
 		pthread_mutex_unlock(&philo->data->death_check);

@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 16:21:38 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/20 19:29:33 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/21 18:32:56 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ void	ft_usleep(t_data *data, long long time)
 void	print_message(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&philo->data->print);
-	printf("%lldms\t%d\t%s\n", get_ms_time() - philo->data->begin_at,
-		philo->id + 1, str);
+	if (philo->data->done_philo < philo->data->num_of_philo)
+		printf("%lldms\t%d\t%s\n", get_ms_time() - philo->data->begin_at,
+			philo->id + 1, str);
 	pthread_mutex_unlock(&philo->data->print);
 }
 
@@ -60,13 +61,17 @@ void	*check_death_routine(void *arg)
 	t_philo	*philo;
 
 	philo = arg;
-	while (1)
+	while (philo->data->done_philo < philo->data->num_of_philo)
 	{
+		pthread_mutex_lock(&philo->data->print);
 		if (philo->next_meal < get_ms_time())
 		{
+			pthread_mutex_unlock(&philo->data->print);
+			print_message(philo, "died");
 			philo->data->num_of_philo = 0;
 			break ;
 		}
+		pthread_mutex_unlock(&philo->data->print);
 	}
 	return (NULL);
 }

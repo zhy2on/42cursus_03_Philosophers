@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:47:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/20 23:10:37 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/21 18:14:22 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,6 @@ int	ft_atoi(const char *str)
 	while (*str >= '0' && *str <= '9')
 		num = num * 10 + (*str++ - '0');
 	return (sign * num);
-}
-
-int	init_check(t_data *data)
-{
-	if (data->num_of_philo < 2)
-		return (put_error("ERROR: Philosopher must be more than 1\n", data));
-	if (data->num_of_philo > 200)
-		return (put_error("ERROR: Philosopher must be less than 200\n", data));
-	if (data->time_to_die < 60 || data->time_to_eat < 60
-		|| data->time_to_sleep < 60)
-		return (put_error("ERROR: Time must be more than 60ms\n", data));
-	return (SUCCESS);
 }
 
 void	init_philo(t_philo *philo, int i, t_data *data)
@@ -90,5 +78,5 @@ int	init_data(t_data *data, int ac, char **av)
 	i = -1;
 	while (++i < data->num_of_philo)
 		init_philo(data->philos + i, i, data);
-	return (init_check(data));
+	return (SUCCESS);
 }

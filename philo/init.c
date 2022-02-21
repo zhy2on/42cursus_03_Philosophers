@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:47:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/21 18:54:47 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/21 19:01:55 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,27 @@ int	ft_atoi(const char *str)
 	return (sign * num);
 }
 
-void	init_philo(t_philo *philo, int i, t_data *data)
+void	init_data_sub(t_data *data)
 {
-	philo->data = data;
-	philo->id = i;
-	philo->eat = 0;
-	philo->next_meal = philo->data->begin_at + philo->data->time_to_die;
-	philo->left = philo->data->forks + i;
-	philo->right = philo->data->forks + ((i + 1) % data->num_of_philo);
+	int		i;
+	t_philo	*philo;
+
+	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->death_check, NULL);
+	i = -1;
+	while (++i < data->num_of_philo)
+		pthread_mutex_init(data->forks + i, NULL);
+	data->begin_at = get_ms_time();
+	i = -1;
+	while (++i < data->num_of_philo)
+	{
+		philo = data->philos + i;
+		philo->id = i;
+		philo->eat = 0;
+		philo->next_meal = philo->data->begin_at + philo->data->time_to_die;
+		philo->left = philo->data->forks + i;
+		philo->right = philo->data->forks + ((i + 1) % data->num_of_philo);
+	}
 }
 
 int	init_data(t_data *data, int ac, char **av)
@@ -70,14 +83,6 @@ int	init_data(t_data *data, int ac, char **av)
 	data->philos = malloc(sizeof(t_philo) * data->num_of_philo);
 	if (!data->forks || !data->philos)
 		return (put_error("ERROR: Malloc Failed\n", data));
-	pthread_mutex_init(&data->print, NULL);
-	pthread_mutex_init(&data->death_check, NULL);
-	i = -1;
-	while (++i < data->num_of_philo)
-		pthread_mutex_init(data->forks + i, NULL);
-	data->begin_at = get_ms_time();
-	i = -1;
-	while (++i < data->num_of_philo)
-		init_philo(data->philos + i, i, data);
+	init_data_sub(data);
 	return (SUCCESS);
 }

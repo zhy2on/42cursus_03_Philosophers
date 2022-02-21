@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:10:09 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/21 18:54:04 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/21 19:02:19 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int			put_error(char *str, t_data *data);
 */
 long long	get_ms_time(void);
 int			ft_atoi(const char *str);
+void		init_data_sub(t_data *data);
 int			init_data(t_data *data, int ac, char **av);
-void		init_philo(t_philo *philo, int i, t_data *data);
 
 /*
 *** philo.c ***

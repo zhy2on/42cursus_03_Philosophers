@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:47:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/21 18:14:22 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/21 18:37:54 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	init_data(t_data *data, int ac, char **av)
 	if (!data->forks || !data->philos)
 		return (put_error("ERROR: Malloc Failed\n", data));
 	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->death_check, NULL);
 	i = -1;
 	while (++i < data->num_of_philo)
 		pthread_mutex_init(data->forks + i, NULL);

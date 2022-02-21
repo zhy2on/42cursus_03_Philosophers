@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 16:21:38 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/21 18:32:56 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/21 18:38:02 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	ft_usleep(t_data *data, long long time)
 
 void	print_message(t_philo *philo, char *str)
 {
-	pthread_mutex_lock(&philo->data->print);
+	pthread_mutex_lock(&philo->data->death_check);
 	if (philo->data->done_philo < philo->data->num_of_philo)
 		printf("%lldms\t%d\t%s\n", get_ms_time() - philo->data->begin_at,
 			philo->id + 1, str);
-	pthread_mutex_unlock(&philo->data->print);
+	pthread_mutex_unlock(&philo->data->death_check);
 }
 
 void	philo_eat(t_philo *philo)

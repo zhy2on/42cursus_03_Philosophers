@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:47:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/21 19:09:56 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/22 20:37:30 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	init_data_sub(t_data *data)
 		philo = data->philos + i;
 		philo->data = data;
 		philo->id = i;
-		philo->eat = 0;
+		philo->eat_cnt = 0;
 		philo->next_meal = data->begin_at + data->time_to_die;
 		philo->left = data->forks + i;
 		philo->right = data->forks + ((i + 1) % data->num_of_philo);
@@ -69,6 +69,8 @@ void	init_data_sub(t_data *data)
 int	init_data(t_data *data, int ac, char **av)
 {
 	data->num_of_philo = ft_atoi(av[1]);
+	if (data->num_of_philo < 2)
+		return (put_error("ERROR: Philosophers must be more than two\n", NULL));
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
 	data->time_to_sleep = ft_atoi(av[4]);

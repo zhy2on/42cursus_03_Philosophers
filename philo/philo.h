@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:10:09 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/21 19:02:19 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/22 20:18:07 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_philo
 {
 	int				id;
 	pthread_t		tid;
-	int				eat;
+	int				eat_cnt;
 	long long		next_meal;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;

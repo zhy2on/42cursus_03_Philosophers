@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:11:05 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/21 18:28:47 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/22 17:57:37 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	free_data(t_data *data)
 	while (++i < data->num_of_philo)
 		pthread_mutex_destroy(data->forks + i);
 	pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&data->death_check);
 	if (data->philos)
 		free(data->philos);
 	if (data->forks)
@@ -47,7 +48,7 @@ int	main(int ac, char **av)
 	if (ac != 5 && ac != 6)
 		return (put_error("ERROR: Wrong parameters\n", NULL));
 	if (init_data(&data, ac, av) == ERROR)
-		return (ERROR);
+		return (1);
 	i = -1;
 	while (++i < data.num_of_philo)
 		pthread_create(&data.philos[i].tid, NULL,
@@ -56,5 +57,5 @@ int	main(int ac, char **av)
 	while (++i < data.num_of_philo)
 		pthread_join(data.philos[i].tid, NULL);
 	free_data(&data);
-	return (SUCCESS);
+	return (0);
 }

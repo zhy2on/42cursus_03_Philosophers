@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 20:43:15 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/27 18:31:52 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/27 19:04:42 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	free_data(t_data *data)
 	sem_close(data->done_philo);
 }
 
-void	*check_must_eat_routine(void *arg)
+void	*check_eat_routine(void *arg)
 {
 	t_data	*data;
 	int		i;
@@ -52,15 +52,14 @@ void	handle_error(char *str, t_data *data)
 int	main(int ac, char **av)
 {
 	t_data		data;
+	pthread_t	eat_monitor;
 	int			i;
-	int			status;
-	pthread_t	must_eat_monitor;
 
 	if (ac != 5 && ac != 6)
 		handle_error("ERROR: Wrong parameters\n", NULL);
 	init_data(&data, ac, av);
-	pthread_create(&must_eat_monitor, NULL, check_must_eat_routine, &data);
-	pthread_detach(must_eat_monitor);
+	pthread_create(&eat_monitor, NULL, check_eat_routine, &data);
+	pthread_detach(eat_monitor);
 	i = -1;
 	while (++i < data.num_of_philo)
 	{
@@ -69,7 +68,6 @@ int	main(int ac, char **av)
 			philo_start_routine(data.philos + i);
 	}
 	sem_wait(data.pause);
-	printf("done\n");
 	i = -1;
 	while (++i < data.num_of_philo)
 		kill(data.philos[i].pid, SIGKILL);

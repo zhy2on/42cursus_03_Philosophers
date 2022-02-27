@@ -6,13 +6,13 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 20:50:13 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/27 18:14:00 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/27 19:05:38 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	ft_usleep(t_data *data, long long time)
+void	ft_usleep(long long time)
 {
 	long long	end;
 
@@ -42,7 +42,7 @@ void	philo_eat(t_philo *philo)
 	print_message(philo, "has taken a fork");
 	print_message(philo, "is eating");
 	philo->next_meal = get_ms_time() + philo->data->time_to_die;
-	ft_usleep(philo->data, philo->data->time_to_eat);
+	ft_usleep(philo->data->time_to_eat);
 	philo->eat_cnt++;
 	if (philo->eat_cnt == philo->data->num_of_must_eat)
 		sem_post(philo->data->done_philo);
@@ -53,6 +53,7 @@ void	philo_eat(t_philo *philo)
 void	*check_death_routine(void *arg)
 {
 	t_philo	*philo;
+	int		i;
 
 	philo = arg;
 	while (1)
@@ -61,7 +62,9 @@ void	*check_death_routine(void *arg)
 		if (philo->next_meal < get_ms_time())
 		{
 			print_message(philo, "died");
-			sem_post(philo->data->pause);
+			i = -1;
+			while (++i < philo->data->num_of_philo)
+				sem_post(philo->data->done_philo);
 			break ;
 		}
 		sem_post(philo->data->death_check);
@@ -79,7 +82,7 @@ void	philo_start_routine(t_philo *philo)
 	{
 		philo_eat(philo);
 		print_message(philo, "is sleeping");
-		ft_usleep(philo->data, philo->data->time_to_sleep);
+		ft_usleep(philo->data->time_to_sleep);
 		print_message(philo, "is thinking");
 	}
 	exit(0);

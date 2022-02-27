@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 20:00:30 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/27 18:13:51 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/27 19:05:02 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		init_data(t_data *data, int ac, char **av);
 /*
 *** philo.c ***
 */
-void		ft_usleep(t_data *data, long long time);
+void		ft_usleep(long long time);
 void		print_message(t_philo *philo, char *str);
 void		philo_eat(t_philo *philo);
 void		*check_death_routine(void *arg);

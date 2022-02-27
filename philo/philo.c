@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 16:21:38 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/22 20:37:13 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/02/27 16:40:51 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ void	*check_death_routine(void *arg)
 	philo = arg;
 	while (philo->data->done_philo < philo->data->num_of_philo)
 	{
+		pthread_mutex_lock(&philo->data->death_check);
 		if (philo->next_meal < get_ms_time())
 		{
-			pthread_mutex_lock(&philo->data->death_check);
 			print_message(philo, "died");
 			philo->data->num_of_philo = 0;
-			pthread_mutex_unlock(&philo->data->death_check);
 			break ;
 		}
+		pthread_mutex_unlock(&philo->data->death_check);
 	}
 	return (NULL);
 }
@@ -82,6 +82,7 @@ void	*philo_start_routine(void *arg)
 
 	philo = arg;
 	pthread_create(&death_monitor, NULL, check_death_routine, philo);
+	pthread_detach(death_monitor);
 	while (philo->data->done_philo < philo->data->num_of_philo)
 	{
 		philo_eat(philo);
@@ -89,6 +90,5 @@ void	*philo_start_routine(void *arg)
 		ft_usleep(philo->data, philo->data->time_to_sleep);
 		print_message(philo, "is thinking");
 	}
-	pthread_join(death_monitor, NULL);
 	return (NULL);
 }

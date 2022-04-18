@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 16:21:38 by jihoh             #+#    #+#             */
-/*   Updated: 2022/04/18 20:13:22 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/04/18 20:34:36 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	*check_death_routine(void *arg)
 		{
 			print_message(philo, "died");
 			philo->data->num_of_philo = 0;
-			pthread_mutex_unlock(&philo->data->stop);
+			pthread_mutex_unlock(&philo->data->pause);
 			break ;
 		}
 		pthread_mutex_unlock(&philo->data->death_check);
@@ -91,6 +91,6 @@ void	*philo_start_routine(void *arg)
 		ft_usleep(philo->data, philo->data->time_to_sleep);
 		print_message(philo, "is thinking");
 	}
-	pthread_mutex_unlock(&philo->data->stop);
+	pthread_mutex_unlock(&philo->data->pause);
 	return (NULL);
 }

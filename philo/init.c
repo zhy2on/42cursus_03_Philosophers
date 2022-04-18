@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:47:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/23 18:49:56 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/04/18 19:57:01 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 long long	get_ms_time(void)
 {
 	struct timeval	tv;
-	long long		time;
 
 	gettimeofday(&tv, NULL);
-	time = tv.tv_sec * 1000 + (tv.tv_usec / 1000);
-	return (time);
+	return (tv.tv_sec * (long long)1000 + (tv.tv_usec / 1000));
 }
 
 int	ft_atoi(const char *str)
@@ -49,6 +47,8 @@ void	init_data_sub(t_data *data)
 
 	pthread_mutex_init(&data->print, NULL);
 	pthread_mutex_init(&data->death_check, NULL);
+	pthread_mutex_init(&data->stop, NULL);
+	pthread_mutex_lock(&data->stop);
 	i = -1;
 	while (++i < data->num_of_philo)
 		pthread_mutex_init(data->forks + i, NULL);
@@ -69,8 +69,8 @@ void	init_data_sub(t_data *data)
 int	init_data(t_data *data, int ac, char **av)
 {
 	data->num_of_philo = ft_atoi(av[1]);
-	if (data->num_of_philo < 2)
-		return (put_error("ERROR: Philosophers must be more than two\n", NULL));
+	if (data->num_of_philo < 1)
+		return (put_error("ERROR: Philosophers must be more than one\n", NULL));
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
 	data->time_to_sleep = ft_atoi(av[4]);

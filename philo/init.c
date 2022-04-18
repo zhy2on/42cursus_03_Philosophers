@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:47:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/04/18 19:57:01 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/04/18 20:31:07 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	init_data_sub(t_data *data)
 
 	pthread_mutex_init(&data->print, NULL);
 	pthread_mutex_init(&data->death_check, NULL);
-	pthread_mutex_init(&data->stop, NULL);
-	pthread_mutex_lock(&data->stop);
+	pthread_mutex_init(&data->pause, NULL);
+	pthread_mutex_lock(&data->pause);
 	i = -1;
 	while (++i < data->num_of_philo)
 		pthread_mutex_init(data->forks + i, NULL);

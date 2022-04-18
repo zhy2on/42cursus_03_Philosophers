@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:11:05 by jihoh             #+#    #+#             */
-/*   Updated: 2022/04/18 20:11:47 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/04/18 20:31:15 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_data(t_data *data)
 		pthread_mutex_destroy(data->forks + i);
 	pthread_mutex_destroy(&data->print);
 	pthread_mutex_destroy(&data->death_check);
-	pthread_mutex_destroy(&data->stop);
+	pthread_mutex_destroy(&data->pause);
 	if (data->philos)
 		free(data->philos);
 	if (data->forks)
@@ -58,7 +58,7 @@ int	main(int ac, char **av)
 		pthread_detach(data.philos[i].tid);
 		usleep(100);
 	}
-	pthread_mutex_lock(&data.stop);
+	pthread_mutex_lock(&data.pause);
 	free_data(&data);
 	return (0);
 }

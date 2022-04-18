@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:47:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/27 18:23:50 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/04/18 20:28:35 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	init_data_sub(t_data *data)
 void	init_data(t_data *data, int ac, char **av)
 {
 	data->num_of_philo = ft_atoi(av[1]);
-	if (data->num_of_philo < 2)
-		handle_error("ERROR: Philosophers must be more than two\n", NULL);
+	if (data->num_of_philo < 1)
+		handle_error("ERROR: Philosophers must be more than one\n", NULL);
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
 	data->time_to_sleep = ft_atoi(av[4]);

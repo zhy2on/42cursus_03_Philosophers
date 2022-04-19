@@ -16,6 +16,7 @@ void	free_data(t_data *data)
 {
 	int	i;
 
+	usleep(1000);
 	i = -1;
 	while (++i < data->num_of_philo)
 		pthread_mutex_destroy(data->forks + i);

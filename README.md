@@ -1,12 +1,15 @@
 # 42cursus_03_Philosophers
 
 ## 사용법
-* ./philo
-1. number_of_philosophers
-2. time_to_die 
-3. time_to_eat
-4. time_to_sleep
-5. [number_of_times_each_philosopher_must_eat]
+```c
+$ ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
+```
+
+1. number_of_philosophers: 필로소퍼 수
+2. time_to_die: 몇 ms안에 먹어야 안 죽는지
+3. time_to_eat: 먹는 데 걸리는 시간
+4. time_to_sleep: 자는 데 걸리는 시간
+5. [number_of_times_each_philosopher_must_eat]: 각 필로소퍼가 must_eat만큼 모두 먹으면 프로그램 종료시켜야 함. optional함
 
 ## Mandatory
 * mutex
